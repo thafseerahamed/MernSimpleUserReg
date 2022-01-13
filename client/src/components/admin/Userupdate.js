@@ -41,6 +41,7 @@ const Userupdate = () => {
 
             catch(error){
                 console.log(error.response.data.message);
+                
             }
         
         

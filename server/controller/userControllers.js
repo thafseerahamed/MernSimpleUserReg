@@ -63,12 +63,13 @@ const deleteUser = asyncHandler(async (req,res,next) => {
     const user = await User.findById(req.params.id)
 // / console.log(req.params.id);
      await user.remove()
+     res.json({})
 
 
 })
 
 const updateUser = asyncHandler(async (req,res,next) => {
-    console.log(req.body.name);
+   
   const newUserData ={
 name:req.body.name,
 email:req.body.email
@@ -91,7 +92,17 @@ const getUser = asyncHandler (async (req,res,next) =>{
 const user = await User.findById(req.params.id)
 res.json(user)
 })
-    
+
+const getOneUserBySearch =asyncHandler (async (req,res) =>{
+    const { search } =req.body
+
+    try {
+        const users = await User.find({name:search})
+        res.json(users)
+    } catch (error) {
+        res.json(error)
+    }
+})
     
   
-module.exports = {registerUser,authUser,getAllUsers,deleteUser,updateUser,getUser}
+module.exports = {registerUser,authUser,getAllUsers,deleteUser,updateUser,getUser,getOneUserBySearch}
